@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> </title>
+    <style>
+        .header {
+            display: flex;
+            margin: 0;
+            background-color: cornflowerblue;
+            height: 65px;
+            text-align: center;
+            padding-top: 12px;
+            border-bottom: 10px solid silver;
+        }
+        body {
+            margin: 0;
+            background-color: #e8e6ff;
+        }
+        form {
+            padding-top: 40px;
+            padding-left: 200px;
+        }
+        footer {
+             float: left;
+             background-color: cornflowerblue;
+             width: 98%;
+             padding: 1%;
+             border-top: 8px solid silver;
+             position: fixed;
+            bottom: 0;
+             height: 10px
+        }
+        h2 {
+            padding-left: 150px;
+            padding-top: 30px;
+        }
+        button {
+            margin-left: 60px;
+            margin-top: 18px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+        .field-value {
+            color: rgba(32, 34, 226, 0.97);
+        }
+        .hotel-block {
+            padding: 5px;
+            border: 1px solid silver;
+            margin-left: 30px;
+        }
+        .hotel-photo {
+            height: 500px;
+            width: 500px;
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    {% if request.user.is_authenticated %}
+        <a href="zakaz/"><button> Reserve hotel </button> </a>
+    {% endif %}
+    <a href="{% url 'registration' %}"><button>Registration</button></a>
+    <a href="{% url 'login' %}"><button>Login </button> </a>
+</div>
+<form action="">
+    Поиск: <input name="name">
+    <input type="submit" value="Искать">
+</form>
+{% for hotel in object_list %}
+    <div class="hotel-block">
+        <p>Name: <span class="field-value">{{ hotel.name }}</span></p>
+        <p>Location: <span class="field-value">{{ hotel.location }}</span></p>
+        <p>Host Type: <span class="field-value">{{ hotel.host}}</span></p>
+        <p>Rank: <span class="field-value">{{ hotel.rank }}</span></p>
+        <p>Price: <span class="field-value">{{ hotel.price }}</span></p>
+        {% if hotel.background %}
+            <p> <img class="hotel-photo" src="{{ hotel.background.url }}"/> </p>
+        {% endif %}
+    </div>
+{% endfor %}
+<footer>
+
+</footer>
+</body>
+</html>
